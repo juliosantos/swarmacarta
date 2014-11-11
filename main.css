@@ -1,0 +1,40 @@
+html,body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#loading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 999999;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+#actions {
+  position: fixed;
+  top: 50px;
+  right: 10px;
+  text-align: right;
+}
+
+#actions p > * {
+  display: none;
+  box-shadow: 2px 2px 1px rgba(0,0,0,0.5);
+  outline: 0;
+}
+
+#actions p > .btn.disabled {
+  opacity: 1;
+}
+
+#actions p > #about {
+  display: inline;
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Swarma Carta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="http://whoisjuliosantos.com">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <div id="loading">
+      <div class="progress-bar progress-bar-striped active" style="width: 100%">
+      </div>
+    </div>
+    </div>
+
+    <div id="map"></div>
+
+    <div id="intro-modal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Swarma Carta</h4>
+          </div>
+          <div class="modal-body">
+            <p>Click below to plot all your Forsquare/Swarm check-ins on the map.</p>
+          </div>
+          <div class="modal-footer">
+            <p class="pull-left"><small>Made with love by <a href="http://whoisjuliosantos.com" target="_blank">Júlio Santos</a></small></p>
+            <p><a href="https://foursquare.com/oauth2/authenticate?client_id=LS3KHIMRB04RJFKJ0CUIJGEZZFOMI2FEUX1JAED2QI4FXVVV&response_type=token&redirect_uri=http://swarmacarta.s3-website-us-east-1.amazonaws.com" class="btn btn-primary">Plot Check-ins</a></p>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="about-modal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Swarma Carta</h4>
+          </div>
+          <div class="modal-body">
+            <p>Swarma Carta, aside from <a href="http://en.wikipedia.org/wiki/Magna_Carta" target="_blank">bad and far-fetched wordplay</a>, is a small web app you can use to plot your Foursquare/Swarm check-ins on a map, explore where you've been, and share it with others.</p>
+            <p>It's a tiny experiment by <a href="http://whoisjuliosantos.com" target="_blank">Júlio Santos</a>. <small>He needed an excuse to play with <a href="https://www.parse.com/" target="_blank">Parse</a>.</small></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="actions">
+      <p><button id="about" class="btn btn-warning">About</button></p>
+      <p><button id="share" class="btn btn-success" data-loading-text="wait...">Share</button></p>
+      <p><a id="new" href="/" class="btn btn-success">Make your own</a></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://www.parsecdn.com/js/parse-1.3.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key="></script>
+    <script src="base64.js"></script>
+    <script src="main.js"></script>
+
+    <div id="modals">
+    </div>
+
+    <script id="venue-modal" type="text/template">
+      <div class="modal fade">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title"><%= checkin.venue.name %></h4>
+            </div>
+            <div class="modal-body">
+              <p><%= new Date( checkin.createdAt * 1000 ) %></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </script>
+
+    <script id="share-modal" type="text/template">
+      <div class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title">Share</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                Copy and share the following link:
+                <br>
+                <a href="<%= shareUrl %>" target="_blank"><%= shareUrl %></a>
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </script>
+  </body>
+</html>
