@@ -157,23 +157,35 @@ var SwarmaCarta = (function () {
 
 
   var plotCheckins = function () {
+    var markers = [];
+
     _.each( user.checkins, function (checkin) {
       if (checkin.venue) {
         var position = new google.maps.LatLng(
             checkin.venue.location.lat,
             checkin.venue.location.lng
         );
+
         var marker = new google.maps.Marker({
           position : position,
           map : map,
           title : checkin.venue.name
         });
+
+        markers.push( marker );
+
         google.maps.event.addListener( marker, "click", function () {
           $( "#modals").html( _.template( $( "#venue-modal" ).html() )( {checkin : checkin} ) );
           $( "#modals > div" ).modal();
         });
       }
     });
+
+    var bounds = new google.maps.LatLngBounds();
+    _.each( markers, function (marker) {
+      bounds.extend( marker.getPosition() );
+    });
+    map.fitBounds( bounds );
   };
 
   var share = function () {
